@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import { BDCONNECTION } from './consts'
+import { env } from './constants'
 
-const mongoConnection = mongoose.connect(BDCONNECTION)
+const mongoConnection = mongoose.connect(env.DB_CONNECTION)
 mongoose.Promise = global.Promise
 
 export { mongoConnection }

@@ -1,9 +1,8 @@
-import express from 'express'
-import { userRouter } from './userRoutes'
+import { Router } from 'express'
+import { userRouter } from './userRouter'
 
-const app = express()
-app.use(express.json())
+const router = Router()
 
-app.use(userRouter)
+router.use(userRouter)
 
-export { app }
+export { router }

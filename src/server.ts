@@ -1,10 +1,15 @@
-import { mongoConnection } from './config/bd_config'
-import { app } from './routes'
+import { mongoConnection } from './config/db_config'
+import { app } from '.'
+import { env } from './config/constants'
 
-mongoConnection.then(() => {
-  app.listen(3333, () => {
-    console.log('Back-end started in 3333 port!')
+const PORT = env.PORT || 3333
+
+mongoConnection
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log('Back-end started in 3333 port!')
+    })
   })
-}).catch((err) => {
-  console.log(err)
-})
+  .catch((err: any) => {
+    console.log(err)
+  })
