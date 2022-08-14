@@ -1,7 +1,6 @@
 import { IAddress } from './addressEntity'
 
 export interface IUserEntity {
-  _id: string
   name: string
   lastName: string
   email: string
@@ -13,4 +12,10 @@ export interface IUserEntity {
   address: IAddress
 }
 
-export interface IUserResponse extends Omit<IUserEntity, 'password'> {}
+export interface CreatedUserModel extends Omit<IUserEntity, 'password'> {
+  _id: string
+}
+
+export interface IUserResponse extends Omit<IUserEntity, 'password'> {
+  id: string
+}

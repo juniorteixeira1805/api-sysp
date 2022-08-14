@@ -1,6 +1,6 @@
+import { CreateUserResponse } from './../interfaces/user/create-user-service-interface'
 import { UserNotCreatedError } from './../errors/user-not-created-error'
 import { UserAlreadyExistsError } from './../errors/user-already-exists-error'
-import { IUserEntity, IUserResponse } from '../../entities/userEntity'
 import { UserModel } from '../../models/userModel'
 import bcrypt from 'bcrypt'
 import { MissingParamError } from '../errors/missing-param-error'
@@ -9,32 +9,13 @@ import { VeryShortPasswordError } from '../errors/very-short-password-error'
 import { AddressModel } from '../../models/adressModel'
 import { GenderError } from '../errors/gender-error'
 import { VeryShortPhoneError } from '../errors/very-short-phone-error'
+import { ICreateUserService } from '../interfaces/user/create-user-service-interface'
+import { userDto } from '../helpers/user-dto'
 
-const userCreateDto = ({
-  _id,
-  address,
-  birthDate,
-  email,
-  gender,
-  lastName,
-  maritalStatus,
-  name,
-  password,
-  phone
-}: IUserEntity): IUserResponse => ({
-  _id,
-  address,
-  birthDate,
-  email,
-  gender,
-  lastName,
-  maritalStatus,
-  name,
-  phone
-})
-
-export class CreateUserService {
-  async createUser(userParams: any): Promise<IUserResponse | HttpResponse> {
+export class CreateUserService implements ICreateUserService {
+  async createUser(
+    userParams: any
+  ): Promise<CreateUserResponse | HttpResponse> {
     const requiredParams = [
       'name',
       'lastName',
@@ -88,8 +69,9 @@ export class CreateUserService {
     }
 
     const userCreated = await UserModel.create({ ...params })
+
     if (!userCreated) throw badRequest(new UserNotCreatedError())
 
-    return userCreateDto(userCreated)
+    return userDto(userCreated)
   }
 }

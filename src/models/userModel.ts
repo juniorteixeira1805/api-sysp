@@ -3,9 +3,7 @@ import { mongoosePagination, Pagination } from 'mongoose-paginate-ts'
 
 import { IUserEntity } from '../entities/userEntity'
 
-interface IUser
-  extends Omit<IUserEntity, '_id' | 'createdAt' | 'updatedAt'>,
-    Document {}
+interface IUser extends IUserEntity, Document {}
 
 const userSchema = new Schema<IUser>(
   {
@@ -48,7 +46,9 @@ const userSchema = new Schema<IUser>(
     },
     password: {
       type: String,
-      required: true
+      required: true,
+      select: false,
+      minlength: 8
     }
   },
   {
