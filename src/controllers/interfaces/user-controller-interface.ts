@@ -13,6 +13,7 @@ export interface IUserController {
     res: Response
   ) => Promise<Response<IUserResponse[]>>
   getOneUser: (req: Request, res: Response) => Promise<Response<IUserResponse>>
+  updateUser: (req: Request, res: Response) => Promise<Response<IUserResponse>>
   deleteUser: (
     req: Request,
     res: Response

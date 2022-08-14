@@ -8,6 +8,7 @@ import {
 import { GetAllUsersService } from '../../services/userService/getAllUsersService'
 import { GetOneUserService } from '../../services/userService/get-one-user-service'
 import { DeleteUserService } from '../../services/userService/delete-user-service'
+import { UpdateUserService } from '../../services/userService/update-user-service'
 
 export class UserController implements IUserController {
   async createUser(
@@ -51,6 +52,23 @@ export class UserController implements IUserController {
       const { id } = req.params
 
       const response = await userService.getOneUser(id)
+
+      return res.status(200).json(response)
+    } catch (error: any) {
+      return res.status(error.statusCode).json(error)
+    }
+  }
+
+  async updateUser(
+    req: Request,
+    res: Response
+  ): Promise<Response<IUserResponse>> {
+    try {
+      const userService = new UpdateUserService()
+      const { id } = req.params
+      const user = req.body
+
+      const response = await userService.updateUser(id, user)
 
       return res.status(200).json(response)
     } catch (error: any) {
