@@ -7,5 +7,6 @@ const userController = new UserController()
 
 userRouter.post('/user/register', userController.createUser)
 userRouter.get('/users', userController.getAllUsers)
+userRouter.get('/user/:id', userController.getOneUser)
 
 export { userRouter }

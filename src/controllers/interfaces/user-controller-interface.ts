@@ -7,4 +7,5 @@ export interface IUserController {
     req: Request,
     res: Response
   ) => Promise<Response<IUserResponse[]>>
+  getOneUser: (req: Request, res: Response) => Promise<Response<IUserResponse>>
 }

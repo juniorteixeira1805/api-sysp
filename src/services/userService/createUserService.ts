@@ -1,3 +1,4 @@
+import { VeryShortSizeError } from './../errors/very-short-size-error'
 import { CreateUserResponse } from './../interfaces/user/create-user-service-interface'
 import { UserNotCreatedError } from './../errors/user-not-created-error'
 import { UserAlreadyExistsError } from './../errors/user-already-exists-error'
@@ -5,10 +6,8 @@ import { UserModel } from '../../models/userModel'
 import bcrypt from 'bcrypt'
 import { MissingParamError } from '../errors/missing-param-error'
 import { badRequest, HttpResponse } from '../errors/bad-request.error'
-import { VeryShortPasswordError } from '../errors/very-short-password-error'
 import { AddressModel } from '../../models/adressModel'
 import { GenderError } from '../errors/gender-error'
-import { VeryShortPhoneError } from '../errors/very-short-phone-error'
 import { ICreateUserService } from '../interfaces/user/create-user-service-interface'
 import { userDto } from '../helpers/user-dto'
 
@@ -48,10 +47,10 @@ export class CreateUserService implements ICreateUserService {
       throw badRequest(new GenderError())
     }
     if (phone.trim().length < 11) {
-      throw badRequest(new VeryShortPhoneError())
+      throw badRequest(new VeryShortSizeError('Informe um telefone válido'))
     }
     if (password.length < 8) {
-      throw badRequest(new VeryShortPasswordError())
+      throw badRequest(new VeryShortSizeError('Senha muito curta'))
     }
     const hashedPassword = await bcrypt.hash(password, 10)
 

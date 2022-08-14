@@ -20,7 +20,7 @@ export class GetAllUsersService implements IGetAllUsersService {
     })
 
     if (!users) {
-      return badRequest(new UserNotFoundError())
+      throw badRequest(new UserNotFoundError())
     }
     const { docs, ...restUsersProps } = users
 
